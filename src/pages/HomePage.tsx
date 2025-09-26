@@ -4,14 +4,7 @@ import { Link } from "react-router-dom";
 
 const HomePage = () => {
   return (
-    <div className="relative min-h-screen w-full overflow-hidden bg-[#0a192f] text-white">
-      {/* Background Image and Gradient */}
-      <div
-        className="absolute inset-0 bg-cover bg-center opacity-10"
-        style={{ backgroundImage: "url(https://images.unsplash.com/photo-1570129477492-45c003edd2be?q=80&w=2070&auto=format&fit=crop)" }}
-      ></div>
-      <div className="absolute inset-0 bg-gradient-to-r from-[#0a192f] via-[#0a192f] to-transparent"></div>
-
+    <div className="relative min-h-screen w-full overflow-hidden bg-black text-white">
       <div className="relative z-20 flex min-h-screen items-center">
         <div className="container mx-auto grid grid-cols-1 items-center gap-12 px-4 md:grid-cols-2">
           {/* Left Column: Text and Buttons */}
