@@ -1,3 +1,4 @@
+import React from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -12,7 +13,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Eye } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-export default function LoginPage() {
+const LoginPage: React.FC = () => {
   const navigate = useNavigate();
 
   const handleAuth = (e: React.FormEvent) => {
@@ -94,4 +95,6 @@ export default function LoginPage() {
       </div>
     </div>
   );
-}
+};
+
+export default LoginPage;
