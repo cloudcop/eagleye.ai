@@ -3,10 +3,10 @@ import { Bell, FileText, LayoutDashboard, ShieldBan } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navItems = [
-  { to: "/", label: "Dashboard", icon: LayoutDashboard },
-  { to: "/alerts", label: "Alerts", icon: Bell },
-  { to: "/banned-list", label: "Banned List", icon: ShieldBan },
-  { to: "/audit-log", label: "Audit Log", icon: FileText },
+  { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { to: "/dashboard/alerts", label: "Alerts", icon: Bell },
+  { to: "/dashboard/banned-list", label: "Banned List", icon: ShieldBan },
+  { to: "/dashboard/audit-log", label: "Audit Log", icon: FileText },
 ];
 
 const Sidebar = () => {
@@ -14,7 +14,10 @@ const Sidebar = () => {
     <aside className="hidden border-r bg-muted/40 md:block">
       <div className="flex h-full max-h-screen flex-col gap-2">
         <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
-          <NavLink to="/" className="flex items-center gap-2 font-semibold">
+          <NavLink
+            to="/dashboard"
+            className="flex items-center gap-2 font-semibold"
+          >
             <ShieldBan className="h-6 w-6 text-primary" />
             <span className="">VeriSure AI</span>
           </NavLink>
@@ -25,7 +28,7 @@ const Sidebar = () => {
               <NavLink
                 key={item.to}
                 to={item.to}
-                end={item.to === "/"}
+                end={item.to === "/dashboard"}
                 className={({ isActive }) =>
                   cn(
                     "flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary",

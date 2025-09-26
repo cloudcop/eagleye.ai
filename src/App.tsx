@@ -12,6 +12,7 @@ import AuditLog from "./pages/AuditLog";
 import { AuditLogProvider } from "./context/AuditLogContext";
 import { AppProvider } from "./context/AppContext";
 import { ThemeProvider } from "./components/theme/theme-provider";
+import HomePage from "./pages/HomePage";
 
 const queryClient = new QueryClient();
 
@@ -25,7 +26,8 @@ const App = () => (
           <AuditLogProvider>
             <AppProvider>
               <Routes>
-                <Route path="/" element={<DashboardLayout />}>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/dashboard" element={<DashboardLayout />}>
                   <Route index element={<Index />} />
                   <Route path="alerts" element={<Alerts />} />
                   <Route path="banned-list" element={<BannedList />} />

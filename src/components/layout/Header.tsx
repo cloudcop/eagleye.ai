@@ -7,10 +7,10 @@ import { cn } from "@/lib/utils";
 import { ThemeToggle } from "../theme/theme-toggle";
 
 const navItems = [
-  { to: "/", label: "Dashboard", icon: LayoutDashboard },
-  { to: "/alerts", label: "Alerts", icon: Bell },
-  { to: "/banned-list", label: "Banned List", icon: ShieldBan },
-  { to: "/audit-log", label: "Audit Log", icon: FileText },
+  { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { to: "/dashboard/alerts", label: "Alerts", icon: Bell },
+  { to: "/dashboard/banned-list", label: "Banned List", icon: ShieldBan },
+  { to: "/dashboard/audit-log", label: "Audit Log", icon: FileText },
 ];
 
 const Header = () => {
@@ -26,7 +26,7 @@ const Header = () => {
         <SheetContent side="left" className="flex flex-col">
           <nav className="grid gap-2 text-lg font-medium">
             <NavLink
-              to="/"
+              to="/dashboard"
               className="mb-4 flex items-center gap-2 text-lg font-semibold"
             >
               <ShieldBan className="h-6 w-6 text-primary" />
@@ -36,7 +36,7 @@ const Header = () => {
               <NavLink
                 key={item.to}
                 to={item.to}
-                end={item.to === "/"}
+                end={item.to === "/dashboard"}
                 className={({ isActive }) =>
                   cn(
                     "mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground",
