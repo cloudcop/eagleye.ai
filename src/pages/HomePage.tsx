@@ -33,7 +33,7 @@ const HomePage = () => {
                 <DialogTrigger asChild>
                   <Button className="bg-cyan-400 text-black hover:bg-cyan-500 animate-button-glow" size="lg">
                     <PlayCircle className="mr-2 h-5 w-5" />
-                    Watch 45-sec Demo
+                    Watch Demo
                   </Button>
                 </DialogTrigger>
                 <DialogContent className="max-w-4xl bg-black border-gray-800 p-0">
