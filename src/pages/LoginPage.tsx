@@ -48,11 +48,11 @@ const LoginPage = () => {
                 <form onSubmit={handleAuth} className="space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="email-login">Email</Label>
-                    <Input id="email-login" type="email" placeholder="m@example.com" required />
+                    <Input id="email-login" type="email" placeholder="m@example.com" required defaultValue="demo@eagleye.ai" />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="password-login">Password</Label>
-                    <Input id="password-login" type="password" required />
+                    <Input id="password-login" type="password" required defaultValue="password123" />
                   </div>
                   <Button type="submit" className="w-full">
                     Login
@@ -67,7 +67,7 @@ const LoginPage = () => {
                 <CardTitle>Sign Up</CardTitle>
                 <CardDescription>
                   Create an account to get started.
-                </CardDescription>
+                </Description>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleAuth} className="space-y-4">
