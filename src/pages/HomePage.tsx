@@ -19,13 +19,13 @@ const HomePage = () => {
           {/* Left Column: Text and Buttons */}
           <div className="text-center md:text-left">
             <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
-              AI CCTV that spots theft in seconds
+              AI-powered CCTV that spots theft in seconds.
             </h1>
             <p className="mt-4 text-3xl font-semibold text-cyan-400">
               Eagleye.ai
             </p>
             <p className="mt-2 text-lg text-gray-300">
-              Smart Vision, Safer Shops
+              Smart Vision, Safer Shops, Safer Home.
             </p>
             <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:justify-center md:justify-start">
               <BookPilotDialog />
