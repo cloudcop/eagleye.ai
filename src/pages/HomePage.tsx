@@ -20,7 +20,7 @@ const HomePage = () => {
               AI CCTV that spots theft in seconds
             </h1>
             <p className="mt-4 text-3xl font-semibold text-cyan-400">
-              Eagleye.AI
+              Eagleye.ai
             </p>
             <p className="mt-2 text-lg text-gray-300">
               Smart Vision, Safer Shops
