@@ -14,9 +14,15 @@ const HomePage = () => {
           Your advanced AI-powered security monitoring solution. Keep your
           premises safe with real-time alerts and intelligent threat detection.
         </p>
-        <div className="mt-8">
-          <Button asChild size="lg">
-            <Link to="/dashboard">Go to Dashboard</Link>
+        <div className="mt-8 flex flex-col items-center gap-4">
+          <div className="flex gap-4">
+            <Button size="lg">Login</Button>
+            <Button variant="secondary" size="lg">
+              Sign Up
+            </Button>
+          </div>
+          <Button asChild variant="link" className="text-muted-foreground">
+            <Link to="/dashboard">Continue to demo dashboard</Link>
           </Button>
         </div>
       </div>
