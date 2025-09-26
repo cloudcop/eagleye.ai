@@ -17,6 +17,7 @@ import { RemovePersonDialog } from "@/components/banned-list/RemovePersonDialog"
 import type { BannedPerson } from "@/types";
 import { useAppContext } from "@/context/AppContext";
 import { ArrowUpDown } from "lucide-react";
+import { DataTablePagination } from "@/components/data-table/DataTablePagination";
 
 type SortKey = keyof BannedPerson;
 
@@ -32,6 +33,8 @@ const BannedList = () => {
     key: SortKey;
     direction: "ascending" | "descending";
   } | null>({ key: "date", direction: "descending" });
+  const [page, setPage] = useState(1);
+  const [perPage, setPerPage] = useState(10);
 
   const filteredList = useMemo(
     () =>
@@ -57,6 +60,11 @@ const BannedList = () => {
     return sortableItems;
   }, [filteredList, sortConfig]);
 
+  const paginatedList = useMemo(() => {
+    const startIndex = (page - 1) * perPage;
+    return sortedList.slice(startIndex, startIndex + perPage);
+  }, [sortedList, page, perPage]);
+
   const requestSort = (key: SortKey) => {
     let direction: "ascending" | "descending" = "ascending";
     if (
@@ -67,6 +75,7 @@ const BannedList = () => {
       direction = "descending";
     }
     setSortConfig({ key, direction });
+    setPage(1);
   };
 
   const getSortIndicator = (key: SortKey) => {
@@ -74,6 +83,11 @@ const BannedList = () => {
       return <ArrowUpDown className="ml-2 h-4 w-4" />;
     }
     return sortConfig.direction === "ascending" ? " 🔼" : " 🔽";
+  };
+
+  const handlePerPageChange = (newPerPage: number) => {
+    setPerPage(newPerPage);
+    setPage(1);
   };
 
   return (
@@ -91,75 +105,87 @@ const BannedList = () => {
             <Input
               placeholder="Search by name..."
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={(e) => {
+                setSearchTerm(e.target.value);
+                setPage(1);
+              }}
               className="max-w-sm"
             />
           </div>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Photo</TableHead>
-                <TableHead>
-                  <Button variant="ghost" onClick={() => requestSort("name")}>
-                    Name/Alias
-                    {getSortIndicator("name")}
-                  </Button>
-                </TableHead>
-                <TableHead>Reason</TableHead>
-                <TableHead>
-                  <Button variant="ghost" onClick={() => requestSort("date")}>
-                    Date Banned
-                    {getSortIndicator("date")}
-                  </Button>
-                </TableHead>
-                <TableHead>Actions</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {sortedList.length > 0 ? (
-                sortedList.map((person) => (
-                  <TableRow key={person.id}>
-                    <TableCell>
-                      <Avatar>
-                        <AvatarImage src={person.image} alt={person.name} />
-                        <AvatarFallback>
-                          {person.name
-                            .split(" ")
-                            .map((n) => n[0])
-                            .join("")}
-                        </AvatarFallback>
-                      </Avatar>
-                    </TableCell>
-                    <TableCell>{person.name}</TableCell>
-                    <TableCell>{person.reason}</TableCell>
-                    <TableCell>{person.date}</TableCell>
-                    <TableCell className="space-x-2">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => setPersonToEdit(person)}
-                      >
-                        Edit
-                      </Button>
-                      <Button
-                        variant="destructive"
-                        size="sm"
-                        onClick={() => setPersonToRemove(person)}
-                      >
-                        Remove
-                      </Button>
+          <div className="rounded-md border">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Photo</TableHead>
+                  <TableHead>
+                    <Button variant="ghost" onClick={() => requestSort("name")}>
+                      Name/Alias
+                      {getSortIndicator("name")}
+                    </Button>
+                  </TableHead>
+                  <TableHead>Reason</TableHead>
+                  <TableHead>
+                    <Button variant="ghost" onClick={() => requestSort("date")}>
+                      Date Banned
+                      {getSortIndicator("date")}
+                    </Button>
+                  </TableHead>
+                  <TableHead>Actions</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {paginatedList.length > 0 ? (
+                  paginatedList.map((person) => (
+                    <TableRow key={person.id}>
+                      <TableCell>
+                        <Avatar>
+                          <AvatarImage src={person.image} alt={person.name} />
+                          <AvatarFallback>
+                            {person.name
+                              .split(" ")
+                              .map((n) => n[0])
+                              .join("")}
+                          </AvatarFallback>
+                        </Avatar>
+                      </TableCell>
+                      <TableCell>{person.name}</TableCell>
+                      <TableCell>{person.reason}</TableCell>
+                      <TableCell>{person.date}</TableCell>
+                      <TableCell className="space-x-2">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => setPersonToEdit(person)}
+                        >
+                          Edit
+                        </Button>
+                        <Button
+                          variant="destructive"
+                          size="sm"
+                          onClick={() => setPersonToRemove(person)}
+                        >
+                          Remove
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))
+                ) : (
+                  <TableRow>
+                    <TableCell colSpan={5} className="h-24 text-center">
+                      No results found.
                     </TableCell>
                   </TableRow>
-                ))
-              ) : (
-                <TableRow>
-                  <TableCell colSpan={5} className="h-24 text-center">
-                    No results found.
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
+                )}
+              </TableBody>
+            </Table>
+          </div>
+          <DataTablePagination
+            count={sortedList.length}
+            page={page}
+            perPage={perPage}
+            onPageChange={setPage}
+            onPerPageChange={handlePerPageChange}
+          />
         </CardContent>
       </Card>
 
