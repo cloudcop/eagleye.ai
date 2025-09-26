@@ -39,6 +39,14 @@ const ProfilePage = () => {
                 <Label htmlFor="email">Email</Label>
                 <Input id="email" type="email" defaultValue="admin@eagleye.ai" />
               </div>
+              <div className="space-y-2">
+                <Label htmlFor="businessName">Business Name</Label>
+                <Input id="businessName" defaultValue="Eagleye Demo Store" />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="role">Role</Label>
+                <Input id="role" defaultValue="Administrator" readOnly />
+              </div>
             </CardContent>
             <CardFooter className="border-t px-6 py-4">
               <Button>Save Changes</Button>
