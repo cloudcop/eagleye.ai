@@ -46,7 +46,6 @@ const HomePage = () => {
                       src="/EagleyeAI_Product_Demo_Video.mp4"
                       controls
                       autoPlay
-                      muted
                       loop
                     >
                       Your browser does not support the video tag.
