@@ -39,11 +39,6 @@ const CompliancePage = () => {
               information on our adherence to key regulations and our own
               policies designed to protect individuals' data and privacy.
             </p>
-            <img
-              src="/placeholder.svg"
-              alt="Abstract image of a secure lock"
-              className="w-full h-48 object-cover rounded-md bg-muted"
-            />
           </CardContent>
         </Card>
 
@@ -123,11 +118,6 @@ const CompliancePage = () => {
                   damage.
                 </li>
               </ul>
-              <img
-                src="/placeholder.svg"
-                alt="Diagram of data protection principles"
-                className="w-full h-48 object-cover rounded-md bg-muted mt-4"
-              />
             </AccordionContent>
           </AccordionItem>
 
