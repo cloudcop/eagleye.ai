@@ -8,6 +8,7 @@ import {
   Menu,
   ShieldBan,
   Eye,
+  Gavel,
 } from "lucide-react";
 import { UserNav } from "./UserNav";
 import { cn } from "@/lib/utils";
@@ -18,6 +19,7 @@ const navItems = [
   { to: "/dashboard/alerts", label: "Alerts", icon: Bell },
   { to: "/dashboard/banned-list", label: "Banned List", icon: ShieldBan },
   { to: "/dashboard/audit-log", label: "Audit Log", icon: FileText },
+  { to: "/dashboard/compliance", label: "Compliance", icon: Gavel },
 ];
 
 const Header = () => {

@@ -13,6 +13,7 @@ import { AuditLogProvider } from "./context/AuditLogContext";
 import { AppProvider } from "./context/AppContext";
 import { ThemeProvider } from "./components/theme/theme-provider";
 import HomePage from "./pages/HomePage";
+import CompliancePage from "./pages/Compliance";
 
 const queryClient = new QueryClient();
 
@@ -32,6 +33,7 @@ const App = () => (
                   <Route path="alerts" element={<Alerts />} />
                   <Route path="banned-list" element={<BannedList />} />
                   <Route path="audit-log" element={<AuditLog />} />
+                  <Route path="compliance" element={<CompliancePage />} />
                 </Route>
                 <Route path="*" element={<NotFound />} />
               </Routes>

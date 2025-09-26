@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { Bell, FileText, LayoutDashboard, ShieldBan, Eye } from "lucide-react";
+import { Bell, FileText, LayoutDashboard, ShieldBan, Eye, Gavel } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navItems = [
@@ -7,6 +7,7 @@ const navItems = [
   { to: "/dashboard/alerts", label: "Alerts", icon: Bell },
   { to: "/dashboard/banned-list", label: "Banned List", icon: ShieldBan },
   { to: "/dashboard/audit-log", label: "Audit Log", icon: FileText },
+  { to: "/dashboard/compliance", label: "Compliance", icon: Gavel },
 ];
 
 const Sidebar = () => {
