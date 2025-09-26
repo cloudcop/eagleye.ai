@@ -1,9 +1,9 @@
-import { createContext, useContext, useState, ReactNode } from "react";
+import { createContext, useContext, useState, ReactNode, useEffect } from "react";
 import type { Alert, AlertStatus, BannedPerson } from "@/types";
 import { useAuditLog } from "./AuditLogContext";
 import { showSuccess } from "@/utils/toast";
 
-// Initial Data
+// Initial Data (as a fallback)
 const initialAlerts: Alert[] = [
   { id: 1, time: "2024-07-30 14:25:10", camera: "Aisle 3", type: "Suspicious Behavior", status: "Unconfirmed", severity: "Medium" },
   { id: 2, time: "2024-07-30 14:22:05", camera: "Entrance", type: "Banned Person Detected", status: "Confirmed", severity: "High" },
@@ -16,6 +16,17 @@ const initialBannedList: BannedPerson[] = [
   { id: 2, name: "Jane Smith", reason: "Repeat Offender", date: "2024-06-20" },
   { id: 3, name: "Unknown Male", reason: "Suspicious Activity", date: "2024-05-10" },
 ];
+
+// Helper to get data from localStorage
+const getFromStorage = <T,>(key: string, fallback: T): T => {
+  try {
+    const item = window.localStorage.getItem(key);
+    return item ? JSON.parse(item) : fallback;
+  } catch (error) {
+    console.error(`Error reading from localStorage key “${key}”:`, error);
+    return fallback;
+  }
+};
 
 // Context Type
 interface AppContextType {
@@ -31,9 +42,17 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 
 // Provider Component
 export const AppProvider = ({ children }: { children: ReactNode }) => {
-  const [alerts, setAlerts] = useState<Alert[]>(initialAlerts);
-  const [bannedList, setBannedList] = useState<BannedPerson[]>(initialBannedList);
+  const [alerts, setAlerts] = useState<Alert[]>(() => getFromStorage("verisure_alerts", initialAlerts));
+  const [bannedList, setBannedList] = useState<BannedPerson[]>(() => getFromStorage("verisure_banned_list", initialBannedList));
   const { addLogEntry } = useAuditLog();
+
+  useEffect(() => {
+    localStorage.setItem("verisure_alerts", JSON.stringify(alerts));
+  }, [alerts]);
+
+  useEffect(() => {
+    localStorage.setItem("verisure_banned_list", JSON.stringify(bannedList));
+  }, [bannedList]);
 
   const updateAlertStatus = (id: number, status: AlertStatus) => {
     const alertToUpdate = alerts.find((alert) => alert.id === id);
