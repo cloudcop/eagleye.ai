@@ -15,6 +15,7 @@ import { EditPersonDialog } from "@/components/banned-list/EditPersonDialog";
 import { RemovePersonDialog } from "@/components/banned-list/RemovePersonDialog";
 import type { BannedPerson } from "@/types";
 import { showSuccess } from "@/utils/toast";
+import { useAuditLog } from "@/context/AuditLogContext";
 
 const initialBannedList: BannedPerson[] = [
   {
@@ -41,7 +42,10 @@ const initialBannedList: BannedPerson[] = [
 const BannedList = () => {
   const [banned, setBanned] = useState<BannedPerson[]>(initialBannedList);
   const [personToEdit, setPersonToEdit] = useState<BannedPerson | null>(null);
-  const [personToRemove, setPersonToRemove] = useState<BannedPerson | null>(null);
+  const [personToRemove, setPersonToRemove] = useState<BannedPerson | null>(
+    null
+  );
+  const { addLogEntry } = useAuditLog();
 
   const handleAddPerson = (newPerson: Omit<BannedPerson, "id" | "date">) => {
     const personToAdd: BannedPerson = {
@@ -51,6 +55,10 @@ const BannedList = () => {
     };
     setBanned([personToAdd, ...banned]);
     showSuccess(`${personToAdd.name} has been added to the banned list.`);
+    addLogEntry(
+      `Added '${personToAdd.name}' to banned list`,
+      `Reason: ${personToAdd.reason}`
+    );
   };
 
   const handleEditPerson = (updatedPerson: BannedPerson) => {
@@ -58,13 +66,21 @@ const BannedList = () => {
       banned.map((p) => (p.id === updatedPerson.id ? updatedPerson : p))
     );
     showSuccess(`${updatedPerson.name}'s details have been updated.`);
+    addLogEntry(
+      `Edited '${updatedPerson.name}' on banned list`,
+      `Updated details for person ID #${updatedPerson.id}.`
+    );
   };
 
   const handleRemovePerson = (id: number) => {
-    const person = banned.find(p => p.id === id);
-    setBanned(banned.filter((p) => p.id !== id));
+    const person = banned.find((p) => p.id === id);
     if (person) {
+      setBanned(banned.filter((p) => p.id !== id));
       showSuccess(`${person.name} has been removed from the banned list.`);
+      addLogEntry(
+        `Removed '${person.name}' from banned list`,
+        `Person ID #${id} was permanently removed.`
+      );
     }
   };
 

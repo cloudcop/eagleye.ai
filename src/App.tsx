@@ -9,6 +9,7 @@ import DashboardLayout from "./components/layout/DashboardLayout";
 import Alerts from "./pages/Alerts";
 import BannedList from "./pages/BannedList";
 import AuditLog from "./pages/AuditLog";
+import { AuditLogProvider } from "./context/AuditLogContext";
 
 const queryClient = new QueryClient();
 
@@ -19,7 +20,13 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route element={<DashboardLayout />}>
+          <Route
+            element={
+              <AuditLogProvider>
+                <DashboardLayout />
+              </AuditLogProvider>
+            }
+          >
             <Route path="/" element={<Index />} />
             <Route path="/alerts" element={<Alerts />} />
             <Route path="/banned-list" element={<BannedList />} />

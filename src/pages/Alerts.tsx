@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { AlertDetailsDialog } from "@/components/alerts/AlertDetailsDialog";
 import type { Alert, AlertStatus } from "@/types";
 import { showSuccess } from "@/utils/toast";
+import { useAuditLog } from "@/context/AuditLogContext";
 
 const initialAlerts: Alert[] = [
   {
@@ -52,13 +53,21 @@ const initialAlerts: Alert[] = [
 const Alerts = () => {
   const [alerts, setAlerts] = useState<Alert[]>(initialAlerts);
   const [selectedAlert, setSelectedAlert] = useState<Alert | null>(null);
+  const { addLogEntry } = useAuditLog();
 
   const handleUpdateStatus = (id: number, status: AlertStatus) => {
+    const alertToUpdate = alerts.find((alert) => alert.id === id);
+    if (!alertToUpdate) return;
+
     setAlerts(
       alerts.map((alert) => (alert.id === id ? { ...alert, status } : alert))
     );
     setSelectedAlert(null); // Close the dialog
     showSuccess(`Alert #${id} has been updated to "${status}".`);
+    addLogEntry(
+      `Updated Alert #${id} to ${status}`,
+      `Alert type: ${alertToUpdate.type} from ${alertToUpdate.camera}.`
+    );
   };
 
   const getStatusColor = (status: AlertStatus) => {
