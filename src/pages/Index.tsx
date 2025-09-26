@@ -3,6 +3,7 @@ import { Activity, CheckCircle, Users, Wifi } from "lucide-react";
 import { useAppContext } from "@/context/AppContext";
 import { AlertsChart } from "@/components/dashboard/AlertsChart";
 import { AlertTypeChart } from "@/components/dashboard/AlertTypeChart";
+import { LiveFeed } from "@/components/dashboard/LiveFeed";
 
 const Index = () => {
   const { alerts, bannedList } = useAppContext();
@@ -74,6 +75,7 @@ const Index = () => {
         <AlertsChart alerts={alerts} />
         <AlertTypeChart alerts={alerts} />
       </div>
+      <LiveFeed />
     </div>
   );
 };
