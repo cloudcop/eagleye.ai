@@ -1,6 +1,8 @@
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Activity, CheckCircle, Users, Wifi } from "lucide-react";
 import { useAppContext } from "@/context/AppContext";
+import { AlertsChart } from "@/components/dashboard/AlertsChart";
+import { AlertTypeChart } from "@/components/dashboard/AlertTypeChart";
 
 const Index = () => {
   const { alerts, bannedList } = useAppContext();
@@ -68,28 +70,9 @@ const Index = () => {
           </CardContent>
         </Card>
       </div>
-      <div className="mt-6">
-        <Card>
-          <CardHeader>
-            <CardTitle>Live Camera Feed</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="bg-black aspect-video rounded-md flex items-center justify-center text-white">
-                Camera 1 Feed
-              </div>
-              <div className="bg-black aspect-video rounded-md flex items-center justify-center text-white">
-                Camera 2 Feed
-              </div>
-              <div className="bg-black aspect-video rounded-md flex items-center justify-center text-white">
-                Camera 3 Feed
-              </div>
-              <div className="bg-black aspect-video rounded-md flex items-center justify-center text-white">
-                Camera 4 Feed
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+      <div className="mt-6 grid gap-4 md:grid-cols-2">
+        <AlertsChart alerts={alerts} />
+        <AlertTypeChart alerts={alerts} />
       </div>
     </div>
   );
