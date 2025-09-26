@@ -20,6 +20,10 @@ export const UserNav = () => {
     navigate("/");
   };
 
+  const handleProfile = () => {
+    navigate("/dashboard/profile");
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -42,7 +46,7 @@ export const UserNav = () => {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>
+          <DropdownMenuItem onClick={handleProfile}>
             <User className="mr-2 h-4 w-4" />
             <span>Profile</span>
           </DropdownMenuItem>

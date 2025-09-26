@@ -15,6 +15,7 @@ import { ThemeProvider } from "./components/theme/theme-provider";
 import HomePage from "./pages/HomePage";
 import CompliancePage from "./pages/Compliance";
 import LoginPage from "./pages/LoginPage";
+import ProfilePage from "./pages/Profile";
 
 const queryClient = new QueryClient();
 
@@ -36,6 +37,7 @@ const App = () => (
                   <Route path="banned-list" element={<BannedList />} />
                   <Route path="audit-log" element={<AuditLog />} />
                   <Route path="compliance" element={<CompliancePage />} />
+                  <Route path="profile" element={<ProfilePage />} />
                 </Route>
                 <Route path="*" element={<NotFound />} />
               </Routes>
