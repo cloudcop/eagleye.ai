@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -7,9 +8,9 @@ const Footer = () => {
     <footer className="relative z-20 bg-black text-gray-400 py-6">
       <div className="container mx-auto px-4 text-center text-sm">
         <div className="flex flex-wrap justify-center items-center gap-x-4 gap-y-2 mb-4">
-          <a href="#" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors">Privacy Policy</a>
+          <Link to="/dashboard/compliance" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors">Privacy Policy</Link>
           <span className="hidden sm:inline text-gray-600">|</span>
-          <a href="#" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors">GDPR</a>
+          <Link to="/dashboard/compliance" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors">GDPR</Link>
           <span className="hidden sm:inline text-gray-600">|</span>
           <a 
             href="https://www.gov.uk/government/publications/update-to-surveillance-camera-code" 
@@ -29,6 +30,3 @@ const Footer = () => {
       </div>
     </footer>
   );
-};
-
-export default Footer;
