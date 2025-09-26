@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Bell, FileText, LayoutDashboard, Menu, ShieldBan } from "lucide-react";
 import { UserNav } from "./UserNav";
 import { cn } from "@/lib/utils";
+import { ThemeToggle } from "../theme/theme-toggle";
 
 const navItems = [
   { to: "/", label: "Dashboard", icon: LayoutDashboard },
@@ -53,6 +54,7 @@ const Header = () => {
       <div className="w-full flex-1">
         {/* Future search bar can go here */}
       </div>
+      <ThemeToggle />
       <UserNav />
     </header>
   );
