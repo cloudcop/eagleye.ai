@@ -1,5 +1,4 @@
 import { createContext, useContext, useState, ReactNode } from "react";
-import { useAuth } from "./AuthContext";
 
 interface AuditLogEntry {
   id: number;
@@ -44,13 +43,12 @@ const initialLogs: AuditLogEntry[] = [
 
 export const AuditLogProvider = ({ children }: { children: ReactNode }) => {
   const [logs, setLogs] = useState<AuditLogEntry[]>(initialLogs);
-  const { user } = useAuth();
 
   const addLogEntry = (action: string, details: string) => {
     const newLog: AuditLogEntry = {
       id: logs.length + 1,
       timestamp: new Date().toLocaleString(),
-      user: user?.email || "System",
+      user: "admin@verisure.ai", // Hardcoded for demo
       action,
       details,
     };

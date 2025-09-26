@@ -16,15 +16,12 @@ import { EditPersonDialog } from "@/components/banned-list/EditPersonDialog";
 import { RemovePersonDialog } from "@/components/banned-list/RemovePersonDialog";
 import type { BannedPerson } from "@/types";
 import { useAppContext } from "@/context/AppContext";
-import { useAuth } from "@/context/AuthContext";
 import { ArrowUpDown } from "lucide-react";
 
 type SortKey = keyof BannedPerson;
 
 const BannedList = () => {
   const { bannedList, addPerson, editPerson, removePerson } = useAppContext();
-  const { profile } = useAuth();
-  const isAdmin = profile?.role === "admin";
 
   const [personToEdit, setPersonToEdit] = useState<BannedPerson | null>(null);
   const [personToRemove, setPersonToRemove] = useState<BannedPerson | null>(
@@ -83,7 +80,7 @@ const BannedList = () => {
     <div>
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-3xl font-bold">Banned List</h1>
-        {isAdmin && <AddPersonDialog onAddPerson={addPerson} />}
+        <AddPersonDialog onAddPerson={addPerson} />
       </div>
       <Card>
         <CardHeader>
@@ -115,7 +112,7 @@ const BannedList = () => {
                     {getSortIndicator("date")}
                   </Button>
                 </TableHead>
-                {isAdmin && <TableHead>Actions</TableHead>}
+                <TableHead>Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -136,24 +133,22 @@ const BannedList = () => {
                     <TableCell>{person.name}</TableCell>
                     <TableCell>{person.reason}</TableCell>
                     <TableCell>{person.date}</TableCell>
-                    {isAdmin && (
-                      <TableCell className="space-x-2">
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => setPersonToEdit(person)}
-                        >
-                          Edit
-                        </Button>
-                        <Button
-                          variant="destructive"
-                          size="sm"
-                          onClick={() => setPersonToRemove(person)}
-                        >
-                          Remove
-                        </Button>
-                      </TableCell>
-                    )}
+                    <TableCell className="space-x-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setPersonToEdit(person)}
+                      >
+                        Edit
+                      </Button>
+                      <Button
+                        variant="destructive"
+                        size="sm"
+                        onClick={() => setPersonToRemove(person)}
+                      >
+                        Remove
+                      </Button>
+                    </TableCell>
                   </TableRow>
                 ))
               ) : (

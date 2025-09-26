@@ -8,12 +8,11 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import type { Alert, AlertStatus } from "@/types";
-import { useAuth } from "@/context/AuthContext";
 
 interface AlertDetailsDialogProps {
   alert: Alert | null;
   open: boolean;
-  onOpenChange: (open: boolean) => void;
+  onOpen-change: (open: boolean) => void;
   onUpdateStatus: (id: number, status: AlertStatus) => void;
 }
 
@@ -23,9 +22,6 @@ export const AlertDetailsDialog = ({
   onOpenChange,
   onUpdateStatus,
 }: AlertDetailsDialogProps) => {
-  const { profile } = useAuth();
-  const isAdmin = profile?.role === "admin";
-
   if (!alert) return null;
 
   const handleConfirm = () => {
@@ -61,16 +57,14 @@ export const AlertDetailsDialog = ({
             </p>
           </div>
         </div>
-        {isAdmin && (
-          <DialogFooter>
-            <Button variant="secondary" onClick={handleFalseAlarm}>
-              Mark as False Alarm
-            </Button>
-            <Button variant="destructive" onClick={handleConfirm}>
-              Confirm Incident
-            </Button>
-          </DialogFooter>
-        )}
+        <DialogFooter>
+          <Button variant="secondary" onClick={handleFalseAlarm}>
+            Mark as False Alarm
+          </Button>
+          <Button variant="destructive" onClick={handleConfirm}>
+            Confirm Incident
+          </Button>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );
