@@ -64,29 +64,31 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   // Real-time alert simulation
   useEffect(() => {
     const interval = setInterval(() => {
-      const cameras = ["Entrance", "Aisle 1", "Checkout 4", "Stockroom", "Electronics"];
-      const types = ["Suspicious Behavior", "Banned Person Detected", "Concealment Detected", "Loitering"];
-      const severities: AlertSeverity[] = ["Low", "Medium", "High"];
-
-      const newAlert: Alert = {
-        id: Math.max(0, ...alerts.map((a) => a.id)) + 1,
-        timestamp: new Date().toISOString(),
-        camera: cameras[Math.floor(Math.random() * cameras.length)],
-        type: types[Math.floor(Math.random() * types.length)],
-        status: "Unconfirmed",
-        severity: severities[Math.floor(Math.random() * severities.length)],
-      };
-
-      setAlerts(prevAlerts => [newAlert, ...prevAlerts]);
-      
+      // Only generate and show alerts when on the dashboard
       if (window.location.pathname.startsWith('/dashboard')) {
-        showAlert(`New Alert: ${newAlert.severity} Severity`, `[${newAlert.camera}] ${newAlert.type}`);
-      }
+        const cameras = ["Entrance", "Aisle 1", "Checkout 4", "Stockroom", "Electronics"];
+        const types = ["Suspicious Behavior", "Banned Person Detected", "Concealment Detected", "Loitering"];
+        const severities: AlertSeverity[] = ["Low", "Medium", "High"];
 
+        setAlerts(prevAlerts => {
+          const newAlert: Alert = {
+            id: Math.max(0, ...prevAlerts.map((a) => a.id)) + 1,
+            timestamp: new Date().toISOString(),
+            camera: cameras[Math.floor(Math.random() * cameras.length)],
+            type: types[Math.floor(Math.random() * types.length)],
+            status: "Unconfirmed",
+            severity: severities[Math.floor(Math.random() * severities.length)],
+          };
+          
+          showAlert(`New Alert: ${newAlert.severity} Severity`, `[${newAlert.camera}] ${newAlert.type}`);
+          
+          return [newAlert, ...prevAlerts];
+        });
+      }
     }, 15000); // Every 15 seconds
 
     return () => clearInterval(interval); // Cleanup on unmount
-  }, [alerts]); // Rerun when alerts change to get the latest count for ID
+  }, []); // Empty dependency array ensures this effect runs only once.
 
   const updateAlertStatus = (id: number, status: AlertStatus) => {
     const alertToUpdate = alerts.find((alert) => alert.id === id);
