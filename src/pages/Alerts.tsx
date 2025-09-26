@@ -131,7 +131,7 @@ const Alerts = () => {
                           {alert.status}
                         </div>
                       </TableCell>
-                      <TableCell>{format(new Date(alert.timestamp), "Pp")}</TableCell>
+                      <TableCell>{alert.timestamp ? format(new Date(alert.timestamp), "Pp") : "N/A"}</TableCell>
                       <TableCell>{alert.camera}</TableCell>
                       <TableCell>{alert.type}</TableCell>
                       <TableCell>

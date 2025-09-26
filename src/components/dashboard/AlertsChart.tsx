@@ -21,6 +21,7 @@ export const AlertsChart = ({ alerts }: AlertsChartProps) => {
       dayEnd.setHours(23, 59, 59, 999);
 
       const alertsForDay = alerts.filter(alert => {
+        if (!alert.timestamp) return false; // Add guard for missing timestamp
         const alertDate = parseISO(alert.timestamp);
         return isWithinInterval(alertDate, { start: sevenDaysAgo, end: today }) &&
                isWithinInterval(alertDate, { start: dayStart, end: dayEnd });

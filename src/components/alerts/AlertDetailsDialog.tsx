@@ -39,7 +39,7 @@ export const AlertDetailsDialog = ({
         <DialogHeader>
           <DialogTitle>Alert Details</DialogTitle>
           <DialogDescription>
-            Review the alert from {alert.camera} at {format(new Date(alert.timestamp), "PPp")}.
+            Review the alert from {alert.camera} at {alert.timestamp ? format(new Date(alert.timestamp), "PPp") : "an unknown time"}.
           </DialogDescription>
         </DialogHeader>
         <div className="py-4 space-y-4">
