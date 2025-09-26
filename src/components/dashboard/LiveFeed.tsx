@@ -1,5 +1,4 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Camera } from "lucide-react";
 
 const cameraFeeds = [
   { name: "Entrance" },
@@ -26,7 +25,14 @@ export const LiveFeed = () => {
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {cameraFeeds.map((feed, index) => (
             <div key={index} className="relative aspect-video w-full rounded-md bg-black flex items-center justify-center text-white overflow-hidden">
-              <Camera className="h-12 w-12 text-gray-600" />
+              <video
+                src="/Live_Retail_Camera_Feed_Video_Generated.mp4"
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-full object-cover"
+              />
               <div className="absolute bottom-0 left-0 w-full bg-black bg-opacity-50 p-2 text-sm">
                 <p>{feed.name}</p>
               </div>
