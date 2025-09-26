@@ -16,12 +16,16 @@ import { EditPersonDialog } from "@/components/banned-list/EditPersonDialog";
 import { RemovePersonDialog } from "@/components/banned-list/RemovePersonDialog";
 import type { BannedPerson } from "@/types";
 import { useAppContext } from "@/context/AppContext";
+import { useAuth } from "@/context/AuthContext";
 import { ArrowUpDown } from "lucide-react";
 
 type SortKey = keyof BannedPerson;
 
 const BannedList = () => {
   const { bannedList, addPerson, editPerson, removePerson } = useAppContext();
+  const { profile } = useAuth();
+  const isAdmin = profile?.role === "admin";
+
   const [personToEdit, setPersonToEdit] = useState<BannedPerson | null>(null);
   const [personToRemove, setPersonToRemove] = useState<BannedPerson | null>(
     null
@@ -32,10 +36,13 @@ const BannedList = () => {
     direction: "ascending" | "descending";
   } | null>({ key: "date", direction: "descending" });
 
-  const filteredList = useMemo(() =>
-    bannedList.filter((person) =>
-      person.name.toLowerCase().includes(searchTerm.toLowerCase())
-    ), [bannedList, searchTerm]);
+  const filteredList = useMemo(
+    () =>
+      bannedList.filter((person) =>
+        person.name.toLowerCase().includes(searchTerm.toLowerCase())
+      ),
+    [bannedList, searchTerm]
+  );
 
   const sortedList = useMemo(() => {
     let sortableItems = [...filteredList];
@@ -76,7 +83,7 @@ const BannedList = () => {
     <div>
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-3xl font-bold">Banned List</h1>
-        <AddPersonDialog onAddPerson={addPerson} />
+        {isAdmin && <AddPersonDialog onAddPerson={addPerson} />}
       </div>
       <Card>
         <CardHeader>
@@ -108,7 +115,7 @@ const BannedList = () => {
                     {getSortIndicator("date")}
                   </Button>
                 </TableHead>
-                <TableHead>Actions</TableHead>
+                {isAdmin && <TableHead>Actions</TableHead>}
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -129,22 +136,24 @@ const BannedList = () => {
                     <TableCell>{person.name}</TableCell>
                     <TableCell>{person.reason}</TableCell>
                     <TableCell>{person.date}</TableCell>
-                    <TableCell className="space-x-2">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => setPersonToEdit(person)}
-                      >
-                        Edit
-                      </Button>
-                      <Button
-                        variant="destructive"
-                        size="sm"
-                        onClick={() => setPersonToRemove(person)}
-                      >
-                        Remove
-                      </Button>
-                    </TableCell>
+                    {isAdmin && (
+                      <TableCell className="space-x-2">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => setPersonToEdit(person)}
+                        >
+                          Edit
+                        </Button>
+                        <Button
+                          variant="destructive"
+                          size="sm"
+                          onClick={() => setPersonToRemove(person)}
+                        >
+                          Remove
+                        </Button>
+                      </TableCell>
+                    )}
                   </TableRow>
                 ))
               ) : (

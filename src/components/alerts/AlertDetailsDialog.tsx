@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import type { Alert, AlertStatus } from "@/types";
+import { useAuth } from "@/context/AuthContext";
 
 interface AlertDetailsDialogProps {
   alert: Alert | null;
@@ -22,6 +23,9 @@ export const AlertDetailsDialog = ({
   onOpenChange,
   onUpdateStatus,
 }: AlertDetailsDialogProps) => {
+  const { profile } = useAuth();
+  const isAdmin = profile?.role === "admin";
+
   if (!alert) return null;
 
   const handleConfirm = () => {
@@ -46,19 +50,27 @@ export const AlertDetailsDialog = ({
             <p>Camera Snapshot for Alert #{alert.id}</p>
           </div>
           <div>
-            <p><strong>Type:</strong> {alert.type}</p>
-            <p><strong>Severity:</strong> {alert.severity}</p>
-            <p><strong>Status:</strong> {alert.status}</p>
+            <p>
+              <strong>Type:</strong> {alert.type}
+            </p>
+            <p>
+              <strong>Severity:</strong> {alert.severity}
+            </p>
+            <p>
+              <strong>Status:</strong> {alert.status}
+            </p>
           </div>
         </div>
-        <DialogFooter>
-          <Button variant="secondary" onClick={handleFalseAlarm}>
-            Mark as False Alarm
-          </Button>
-          <Button variant="destructive" onClick={handleConfirm}>
-            Confirm Incident
-          </Button>
-        </DialogFooter>
+        {isAdmin && (
+          <DialogFooter>
+            <Button variant="secondary" onClick={handleFalseAlarm}>
+              Mark as False Alarm
+            </Button>
+            <Button variant="destructive" onClick={handleConfirm}>
+              Confirm Incident
+            </Button>
+          </DialogFooter>
+        )}
       </DialogContent>
     </Dialog>
   );

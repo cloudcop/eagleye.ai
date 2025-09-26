@@ -13,25 +13,32 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useAuth } from "@/context/AuthContext";
 import { LogOut, User } from "lucide-react";
 
 export const UserNav = () => {
+  const { user, profile, signOut } = useAuth();
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-9 w-9 rounded-full">
           <Avatar className="h-9 w-9">
             <AvatarImage src="/placeholder.svg" alt="User avatar" />
-            <AvatarFallback>OP</AvatarFallback>
+            <AvatarFallback>
+              {user?.email?.charAt(0).toUpperCase() ?? "U"}
+            </AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">Operator</p>
+            <p className="text-sm font-medium leading-none capitalize">
+              {profile?.role ?? "User"}
+            </p>
             <p className="text-xs leading-none text-muted-foreground">
-              operator@verisure.ai
+              {user?.email}
             </p>
           </div>
         </DropdownMenuLabel>
@@ -43,7 +50,7 @@ export const UserNav = () => {
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={signOut}>
           <LogOut className="mr-2 h-4 w-4" />
           <span>Log out</span>
         </DropdownMenuItem>
