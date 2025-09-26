@@ -21,6 +21,7 @@ import { AlertDetailsDialog } from "@/components/alerts/AlertDetailsDialog";
 import type { Alert, AlertStatus } from "@/types";
 import { useAppContext } from "@/context/AppContext";
 import { DataTablePagination } from "@/components/data-table/DataTablePagination";
+import { format } from "date-fns";
 
 const Alerts = () => {
   const { alerts, updateAlertStatus } = useAppContext();
@@ -109,7 +110,7 @@ const Alerts = () => {
               <TableHeader>
                 <TableRow>
                   <TableHead>Status</TableHead>
-                  <TableHead>Time</TableHead>
+                  <TableHead>Timestamp</TableHead>
                   <TableHead>Camera</TableHead>
                   <TableHead>Type</TableHead>
                   <TableHead>Severity</TableHead>
@@ -130,7 +131,7 @@ const Alerts = () => {
                           {alert.status}
                         </div>
                       </TableCell>
-                      <TableCell>{alert.time}</TableCell>
+                      <TableCell>{format(new Date(alert.timestamp), "Pp")}</TableCell>
                       <TableCell>{alert.camera}</TableCell>
                       <TableCell>{alert.type}</TableCell>
                       <TableCell>

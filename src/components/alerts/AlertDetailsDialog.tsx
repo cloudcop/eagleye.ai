@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import type { Alert, AlertStatus } from "@/types";
+import { format } from "date-fns";
 
 interface AlertDetailsDialogProps {
   alert: Alert | null;
@@ -38,7 +39,7 @@ export const AlertDetailsDialog = ({
         <DialogHeader>
           <DialogTitle>Alert Details</DialogTitle>
           <DialogDescription>
-            Review the alert from {alert.camera} at {alert.time}.
+            Review the alert from {alert.camera} at {format(new Date(alert.timestamp), "PPp")}.
           </DialogDescription>
         </DialogHeader>
         <div className="py-4 space-y-4">

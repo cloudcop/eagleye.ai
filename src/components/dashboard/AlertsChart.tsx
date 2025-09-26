@@ -2,7 +2,7 @@ import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip } from "recha
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { Alert } from "@/types";
 import { useMemo } from "react";
-import { subDays, format, parseISO } from "date-fns";
+import { subDays, format, parseISO, isWithinInterval, startOfDay } from "date-fns";
 
 interface AlertsChartProps {
   alerts: Alert[];
@@ -10,20 +10,20 @@ interface AlertsChartProps {
 
 export const AlertsChart = ({ alerts }: AlertsChartProps) => {
   const data = useMemo(() => {
-    const last7Days = Array.from({ length: 7 }, (_, i) => subDays(new Date(), i)).reverse();
-    
+    const today = new Date();
+    const sevenDaysAgo = startOfDay(subDays(today, 6)); // Include today fully
+
+    const last7Days = Array.from({ length: 7 }, (_, i) => subDays(today, i)).reverse();
+
     const alertCounts = last7Days.map(day => {
-      const formattedDay = format(day, "yyyy-MM-dd");
-      // Note: The current alert data only has time, not date. 
-      // For a real app, you'd parse the full timestamp.
-      // Here, we'll simulate by distributing alerts across the days.
-      // This is a placeholder for proper date handling.
-      const todayStr = format(new Date(), "yyyy-MM-dd");
-      const alertsForDay = alerts.filter((alert, index) => {
-        // This is a mock distribution logic
-        const dayIndex = (new Date().getDate() - index) % 7;
-        const alertDay = format(subDays(new Date(), dayIndex), "yyyy-MM-dd");
-        return alertDay === formattedDay;
+      const dayStart = startOfDay(day);
+      const dayEnd = new Date(dayStart);
+      dayEnd.setHours(23, 59, 59, 999);
+
+      const alertsForDay = alerts.filter(alert => {
+        const alertDate = parseISO(alert.timestamp);
+        return isWithinInterval(alertDate, { start: sevenDaysAgo, end: today }) &&
+               isWithinInterval(alertDate, { start: dayStart, end: dayEnd });
       });
 
       return {

@@ -11,7 +11,7 @@ export type AlertSeverity = "Low" | "Medium" | "High";
 
 export interface Alert {
   id: number;
-  time: string;
+  timestamp: string; // Changed from 'time' to 'timestamp'
   camera: string;
   type: string;
   status: AlertStatus;

@@ -2,13 +2,20 @@ import { createContext, useContext, useState, ReactNode, useEffect } from "react
 import type { Alert, AlertStatus, BannedPerson, AlertSeverity } from "@/types";
 import { useAuditLog } from "./AuditLogContext";
 import { showSuccess, showAlert } from "@/utils/toast";
+import { subDays } from "date-fns";
 
-// Initial Data (as a fallback)
+// Helper to generate realistic past timestamps
+const generateTimestamp = (daysAgo: number) => subDays(new Date(), daysAgo).toISOString();
+
+// Initial Data with realistic timestamps
 const initialAlerts: Alert[] = [
-  { id: 1, time: "2024-07-30 14:25:10", camera: "Aisle 3", type: "Suspicious Behavior", status: "Unconfirmed", severity: "Medium" },
-  { id: 2, time: "2024-07-30 14:22:05", camera: "Entrance", type: "Banned Person Detected", status: "Confirmed", severity: "High" },
-  { id: 3, time: "2024-07-30 13:50:41", camera: "Checkout 2", type: "Suspicious Behavior", status: "False Alarm", severity: "Low" },
-  { id: 4, time: "2024-07-29 18:10:15", camera: "Aisle 5", type: "Concealment Detected", status: "Confirmed", severity: "High" },
+  { id: 1, timestamp: generateTimestamp(0), camera: "Aisle 3", type: "Suspicious Behavior", status: "Unconfirmed", severity: "Medium" },
+  { id: 2, timestamp: generateTimestamp(1), camera: "Entrance", type: "Banned Person Detected", status: "Confirmed", severity: "High" },
+  { id: 3, timestamp: generateTimestamp(2), camera: "Checkout 2", type: "Suspicious Behavior", status: "False Alarm", severity: "Low" },
+  { id: 4, timestamp: generateTimestamp(3), camera: "Aisle 5", type: "Concealment Detected", status: "Confirmed", severity: "High" },
+  { id: 5, timestamp: generateTimestamp(4), camera: "Electronics", type: "Loitering", status: "Unconfirmed", severity: "Low" },
+  { id: 6, timestamp: generateTimestamp(5), camera: "Entrance", type: "Suspicious Behavior", status: "False Alarm", severity: "Medium" },
+  { id: 7, timestamp: generateTimestamp(6), camera: "Stockroom", type: "Banned Person Detected", status: "Confirmed", severity: "High" },
 ];
 
 const initialBannedList: BannedPerson[] = [
@@ -63,7 +70,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
 
       const newAlert: Alert = {
         id: Math.max(0, ...alerts.map((a) => a.id)) + 1,
-        time: new Date().toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' }),
+        timestamp: new Date().toISOString(),
         camera: cameras[Math.floor(Math.random() * cameras.length)],
         type: types[Math.floor(Math.random() * types.length)],
         status: "Unconfirmed",
