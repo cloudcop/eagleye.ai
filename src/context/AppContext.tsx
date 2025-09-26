@@ -78,7 +78,10 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
       };
 
       setAlerts(prevAlerts => [newAlert, ...prevAlerts]);
-      showAlert(`New Alert: ${newAlert.severity} Severity`, `[${newAlert.camera}] ${newAlert.type}`);
+      
+      if (window.location.pathname.startsWith('/dashboard')) {
+        showAlert(`New Alert: ${newAlert.severity} Severity`, `[${newAlert.camera}] ${newAlert.type}`);
+      }
 
     }, 15000); // Every 15 seconds
 
