@@ -64,6 +64,7 @@ export const AlertsChart = ({ alerts }: AlertsChartProps) => {
               contentStyle={{
                 backgroundColor: "hsl(var(--background))",
                 border: "1px solid hsl(var(--border))",
+                color: "hsl(var(--foreground))",
               }}
             />
             <Bar dataKey="total" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />

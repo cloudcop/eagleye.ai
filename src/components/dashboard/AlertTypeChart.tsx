@@ -45,6 +45,7 @@ export const AlertTypeChart = ({ alerts }: AlertTypeChartProps) => {
               contentStyle={{
                 backgroundColor: "hsl(var(--background))",
                 border: "1px solid hsl(var(--border))",
+                color: "hsl(var(--foreground))",
               }}
             />
             <Legend />
