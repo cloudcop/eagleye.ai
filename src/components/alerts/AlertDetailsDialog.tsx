@@ -12,7 +12,7 @@ import type { Alert, AlertStatus } from "@/types";
 interface AlertDetailsDialogProps {
   alert: Alert | null;
   open: boolean;
-  onOpen-change: (open: boolean) => void;
+  onOpenChange: (open: boolean) => void;
   onUpdateStatus: (id: number, status: AlertStatus) => void;
 }
 
