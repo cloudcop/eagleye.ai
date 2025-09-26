@@ -10,6 +10,10 @@ const cameraFeeds = [
   { name: "Aisle 1" },
   { name: "Aisle 5" },
   { name: "Parking Lot" },
+  { name: "Checkout 1" },
+  { name: "Aisle 2" },
+  { name: "Aisle 4" },
+  { name: "Loading Bay" },
 ];
 
 export const LiveFeed = () => {
