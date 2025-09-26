@@ -5,6 +5,10 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import DashboardLayout from "./components/layout/DashboardLayout";
+import Alerts from "./pages/Alerts";
+import BannedList from "./pages/BannedList";
+import AuditLog from "./pages/AuditLog";
 
 const queryClient = new QueryClient();
 
@@ -15,8 +19,12 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Index />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route element={<DashboardLayout />}>
+            <Route path="/" element={<Index />} />
+            <Route path="/alerts" element={<Alerts />} />
+            <Route path="/banned-list" element={<BannedList />} />
+            <Route path="/audit-log" element={<AuditLog />} />
+          </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
