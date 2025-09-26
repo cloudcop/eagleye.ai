@@ -1,7 +1,8 @@
 {
-  "name": "vite_react_shadcn_ts",
+  "name": "eagleye-ai",
   "private": true,
   "version": "0.0.0",
+  "description": "AI-powered CCTV that spots theft in seconds.",
   "type": "module",
   "scripts": {
     "dev": "vite",
