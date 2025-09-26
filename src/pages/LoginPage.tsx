@@ -14,62 +14,66 @@ import { Eye } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 // Sub-component for the Login Form
-const LoginForm = ({ onSubmit }: { onSubmit: (e: React.FormEvent) => void }) => (
-  <Card>
-    <CardHeader>
-      <CardTitle>Login</CardTitle>
-      <CardDescription>
-        Enter your email below to login to your account.
-      </CardDescription>
-    </CardHeader>
-    <CardContent>
-      <form onSubmit={onSubmit} className="space-y-4">
-        <div className="space-y-2">
-          <Label htmlFor="email-login">Email</Label>
-          <Input id="email-login" type="email" placeholder="m@example.com" required defaultValue="demo@eagleye.ai" />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="password-login">Password</Label>
-          <Input id="password-login" type="password" required defaultValue="password123" />
-        </div>
-        <Button type="submit" className="w-full">
-          Login
-        </Button>
-      </form>
-    </CardContent>
-  </Card>
-);
+const LoginForm = ({ onSubmit }: { onSubmit: (e: React.FormEvent) => void }) => {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Login</CardTitle>
+        <CardDescription>
+          Enter your email below to login to your account.
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <form onSubmit={onSubmit} className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="email-login">Email</Label>
+            <Input id="email-login" type="email" placeholder="m@example.com" required defaultValue="demo@eagleye.ai" />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="password-login">Password</Label>
+            <Input id="password-login" type="password" required defaultValue="password123" />
+          </div>
+          <Button type="submit" className="w-full">
+            Login
+          </Button>
+        </form>
+      </CardContent>
+    </Card>
+  );
+};
 
 // Sub-component for the Sign Up Form
-const SignUpForm = ({ onSubmit }: { onSubmit: (e: React.FormEvent) => void }) => (
-  <Card>
-    <CardHeader>
-      <CardTitle>Sign Up</CardTitle>
-      <CardDescription>
-        Create an account to get started.
-      </Description>
-    </CardHeader>
-    <CardContent>
-      <form onSubmit={onSubmit} className="space-y-4">
-         <div className="space-y-2">
-          <Label htmlFor="name-signup">Full Name</Label>
-          <Input id="name-signup" placeholder="John Doe" required />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="email-signup">Email</Label>
-          <Input id="email-signup" type="email" placeholder="m@example.com" required />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="password-signup">Password</Label>
-          <Input id="password-signup" type="password" required />
-        </div>
-        <Button type="submit" className="w-full">
-          Create Account
-        </Button>
-      </form>
-    </CardContent>
-  </Card>
-);
+const SignUpForm = ({ onSubmit }: { onSubmit: (e: React.FormEvent) => void }) => {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Sign Up</CardTitle>
+        <CardDescription>
+          Create an account to get started.
+        </Description>
+      </CardHeader>
+      <CardContent>
+        <form onSubmit={onSubmit} className="space-y-4">
+           <div className="space-y-2">
+            <Label htmlFor="name-signup">Full Name</Label>
+            <Input id="name-signup" placeholder="John Doe" required />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="email-signup">Email</Label>
+            <Input id="email-signup" type="email" placeholder="m@example.com" required />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="password-signup">Password</Label>
+            <Input id="password-signup" type="password" required />
+          </div>
+          <Button type="submit" className="w-full">
+            Create Account
+          </Button>
+        </form>
+      </CardContent>
+    </Card>
+  );
+};
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
