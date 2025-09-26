@@ -42,16 +42,16 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 
 // Provider Component
 export const AppProvider = ({ children }: { children: ReactNode }) => {
-  const [alerts, setAlerts] = useState<Alert[]>(() => getFromStorage("verisure_alerts", initialAlerts));
-  const [bannedList, setBannedList] = useState<BannedPerson[]>(() => getFromStorage("verisure_banned_list", initialBannedList));
+  const [alerts, setAlerts] = useState<Alert[]>(() => getFromStorage("eagleye_alerts", initialAlerts));
+  const [bannedList, setBannedList] = useState<BannedPerson[]>(() => getFromStorage("eagleye_banned_list", initialBannedList));
   const { addLogEntry } = useAuditLog();
 
   useEffect(() => {
-    localStorage.setItem("verisure_alerts", JSON.stringify(alerts));
+    localStorage.setItem("eagleye_alerts", JSON.stringify(alerts));
   }, [alerts]);
 
   useEffect(() => {
-    localStorage.setItem("verisure_banned_list", JSON.stringify(bannedList));
+    localStorage.setItem("eagleye_banned_list", JSON.stringify(bannedList));
   }, [bannedList]);
 
   // Real-time alert simulation

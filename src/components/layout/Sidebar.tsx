@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { Bell, FileText, LayoutDashboard, ShieldBan } from "lucide-react";
+import { Bell, FileText, LayoutDashboard, ShieldBan, Eye } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navItems = [
@@ -18,8 +18,8 @@ const Sidebar = () => {
             to="/dashboard"
             className="flex items-center gap-2 font-semibold"
           >
-            <ShieldBan className="h-6 w-6 text-primary" />
-            <span className="">VeriSure AI</span>
+            <Eye className="h-6 w-6 text-primary" />
+            <span className="">Eagleye.ai</span>
           </NavLink>
         </div>
         <div className="flex-1 overflow-auto py-2">

@@ -1,7 +1,14 @@
 import { NavLink } from "react-router-dom";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import { Bell, FileText, LayoutDashboard, Menu, ShieldBan } from "lucide-react";
+import {
+  Bell,
+  FileText,
+  LayoutDashboard,
+  Menu,
+  ShieldBan,
+  Eye,
+} from "lucide-react";
 import { UserNav } from "./UserNav";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "../theme/theme-toggle";
@@ -29,8 +36,8 @@ const Header = () => {
               to="/dashboard"
               className="mb-4 flex items-center gap-2 text-lg font-semibold"
             >
-              <ShieldBan className="h-6 w-6 text-primary" />
-              <span>VeriSure AI</span>
+              <Eye className="h-6 w-6 text-primary" />
+              <span>Eagleye.ai</span>
             </NavLink>
             {navItems.map((item) => (
               <NavLink
