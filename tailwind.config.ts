@@ -85,10 +85,19 @@ export default {
             height: "0",
           },
         },
+        "button-glow": {
+          "0%, 100%": {
+            boxShadow: "0 0 5px #22d3ee, 0 0 10px #22d3ee",
+          },
+          "50%": {
+            boxShadow: "0 0 20px #22d3ee, 0 0 30px #22d3ee",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "button-glow": "button-glow 2.5s ease-in-out infinite",
       },
     },
   },
