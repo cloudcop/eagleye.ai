@@ -9,6 +9,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import Footer from "@/components/layout/Footer";
+import { BookPilotDialog } from "@/components/home/BookPilotDialog";
 
 const HomePage = () => {
   return (
@@ -27,9 +28,7 @@ const HomePage = () => {
               Smart Vision, Safer Shops
             </p>
             <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:justify-center md:justify-start">
-              <Button className="bg-cyan-400 text-black hover:bg-cyan-500 animate-button-glow" size="lg">
-                Book a Pilot
-              </Button>
+              <BookPilotDialog />
               <Dialog>
                 <DialogTrigger asChild>
                   <Button className="bg-cyan-400 text-black hover:bg-cyan-500 animate-button-glow" size="lg">
