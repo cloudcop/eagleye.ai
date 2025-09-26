@@ -8,11 +8,12 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import Footer from "@/components/layout/Footer";
 
 const HomePage = () => {
   return (
-    <div className="relative min-h-screen w-full overflow-hidden bg-black text-white">
-      <div className="relative z-20 flex min-h-screen items-center">
+    <div className="relative flex flex-col min-h-screen w-full overflow-hidden bg-black text-white">
+      <main className="relative z-20 flex flex-grow items-center">
         <div className="container mx-auto grid grid-cols-1 items-center gap-12 px-4 md:grid-cols-2">
           {/* Left Column: Text and Buttons */}
           <div className="text-center md:text-left">
@@ -64,7 +65,8 @@ const HomePage = () => {
             />
           </div>
         </div>
-      </div>
+      </main>
+      <Footer />
     </div>
   );
 };
