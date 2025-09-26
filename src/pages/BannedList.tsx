@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import {
   Table,
@@ -16,6 +16,9 @@ import { EditPersonDialog } from "@/components/banned-list/EditPersonDialog";
 import { RemovePersonDialog } from "@/components/banned-list/RemovePersonDialog";
 import type { BannedPerson } from "@/types";
 import { useAppContext } from "@/context/AppContext";
+import { ArrowUpDown } from "lucide-react";
+
+type SortKey = keyof BannedPerson;
 
 const BannedList = () => {
   const { bannedList, addPerson, editPerson, removePerson } = useAppContext();
@@ -24,10 +27,50 @@ const BannedList = () => {
     null
   );
   const [searchTerm, setSearchTerm] = useState("");
+  const [sortConfig, setSortConfig] = useState<{
+    key: SortKey;
+    direction: "ascending" | "descending";
+  } | null>({ key: "date", direction: "descending" });
 
-  const filteredList = bannedList.filter((person) =>
-    person.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredList = useMemo(() =>
+    bannedList.filter((person) =>
+      person.name.toLowerCase().includes(searchTerm.toLowerCase())
+    ), [bannedList, searchTerm]);
+
+  const sortedList = useMemo(() => {
+    let sortableItems = [...filteredList];
+    if (sortConfig !== null) {
+      sortableItems.sort((a, b) => {
+        if (a[sortConfig.key] < b[sortConfig.key]) {
+          return sortConfig.direction === "ascending" ? -1 : 1;
+        }
+        if (a[sortConfig.key] > b[sortConfig.key]) {
+          return sortConfig.direction === "ascending" ? 1 : -1;
+        }
+        return 0;
+      });
+    }
+    return sortableItems;
+  }, [filteredList, sortConfig]);
+
+  const requestSort = (key: SortKey) => {
+    let direction: "ascending" | "descending" = "ascending";
+    if (
+      sortConfig &&
+      sortConfig.key === key &&
+      sortConfig.direction === "ascending"
+    ) {
+      direction = "descending";
+    }
+    setSortConfig({ key, direction });
+  };
+
+  const getSortIndicator = (key: SortKey) => {
+    if (!sortConfig || sortConfig.key !== key) {
+      return <ArrowUpDown className="ml-2 h-4 w-4" />;
+    }
+    return sortConfig.direction === "ascending" ? " 🔼" : " 🔽";
+  };
 
   return (
     <div>
@@ -52,15 +95,25 @@ const BannedList = () => {
             <TableHeader>
               <TableRow>
                 <TableHead>Photo</TableHead>
-                <TableHead>Name/Alias</TableHead>
+                <TableHead>
+                  <Button variant="ghost" onClick={() => requestSort("name")}>
+                    Name/Alias
+                    {getSortIndicator("name")}
+                  </Button>
+                </TableHead>
                 <TableHead>Reason</TableHead>
-                <TableHead>Date Banned</TableHead>
+                <TableHead>
+                  <Button variant="ghost" onClick={() => requestSort("date")}>
+                    Date Banned
+                    {getSortIndicator("date")}
+                  </Button>
+                </TableHead>
                 <TableHead>Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {filteredList.length > 0 ? (
-                filteredList.map((person) => (
+              {sortedList.length > 0 ? (
+                sortedList.map((person) => (
                   <TableRow key={person.id}>
                     <TableCell>
                       <Avatar>
