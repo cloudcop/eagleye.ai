@@ -68,8 +68,9 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="mt-12 border-t border-gray-800 pt-6 text-center text-sm">
-          <p>&copy; {currentYear} Eagleye.ai. All Rights Reserved. Made with ❤️ by GrabAI Team in Bristol.</p>
+        <div className="mt-12 border-t border-gray-800 pt-6 text-sm flex flex-col md:flex-row justify-between items-center gap-2">
+          <p>Made with ❤️ by GrabAI Team in Bristol.</p>
+          <p>&copy; {currentYear} Eagleye.ai. All Rights Reserved.</p>
         </div>
       </div>
     </footer>
