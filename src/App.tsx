@@ -14,6 +14,7 @@ import { AppProvider } from "./context/AppContext";
 import { ThemeProvider } from "./components/theme/theme-provider";
 import HomePage from "./pages/HomePage";
 import CompliancePage from "./pages/Compliance";
+import LoginPage from "./pages/LoginPage";
 
 const queryClient = new QueryClient();
 
@@ -28,6 +29,7 @@ const App = () => (
             <AppProvider>
               <Routes>
                 <Route path="/" element={<HomePage />} />
+                <Route path="/login" element={<LoginPage />} />
                 <Route path="/dashboard" element={<DashboardLayout />}>
                   <Route index element={<Index />} />
                   <Route path="alerts" element={<Alerts />} />

@@ -51,7 +51,7 @@ const HomePage = () => {
               </Dialog>
             </div>
              <Button asChild variant="link" className="mt-4 text-gray-400 hover:text-cyan-400">
-                <Link to="/dashboard">Continue to demo dashboard &rarr;</Link>
+                <Link to="/login">Continue to demo dashboard &rarr;</Link>
             </Button>
           </div>
 
