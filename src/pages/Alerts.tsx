@@ -12,62 +12,15 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { AlertDetailsDialog } from "@/components/alerts/AlertDetailsDialog";
 import type { Alert, AlertStatus } from "@/types";
-import { showSuccess } from "@/utils/toast";
-import { useAuditLog } from "@/context/AuditLogContext";
-
-const initialAlerts: Alert[] = [
-  {
-    id: 1,
-    time: "2024-07-30 14:25:10",
-    camera: "Aisle 3",
-    type: "Suspicious Behavior",
-    status: "Unconfirmed",
-    severity: "Medium",
-  },
-  {
-    id: 2,
-    time: "2024-07-30 14:22:05",
-    camera: "Entrance",
-    type: "Banned Person Detected",
-    status: "Confirmed",
-    severity: "High",
-  },
-  {
-    id: 3,
-    time: "2024-07-30 13:50:41",
-    camera: "Checkout 2",
-    type: "Suspicious Behavior",
-    status: "False Alarm",
-    severity: "Low",
-  },
-  {
-    id: 4,
-    time: "2024-07-29 18:10:15",
-    camera: "Aisle 5",
-    type: "Concealment Detected",
-    status: "Confirmed",
-    severity: "High",
-  },
-];
+import { useAppContext } from "@/context/AppContext";
 
 const Alerts = () => {
-  const [alerts, setAlerts] = useState<Alert[]>(initialAlerts);
+  const { alerts, updateAlertStatus } = useAppContext();
   const [selectedAlert, setSelectedAlert] = useState<Alert | null>(null);
-  const { addLogEntry } = useAuditLog();
 
   const handleUpdateStatus = (id: number, status: AlertStatus) => {
-    const alertToUpdate = alerts.find((alert) => alert.id === id);
-    if (!alertToUpdate) return;
-
-    setAlerts(
-      alerts.map((alert) => (alert.id === id ? { ...alert, status } : alert))
-    );
+    updateAlertStatus(id, status);
     setSelectedAlert(null); // Close the dialog
-    showSuccess(`Alert #${id} has been updated to "${status}".`);
-    addLogEntry(
-      `Updated Alert #${id} to ${status}`,
-      `Alert type: ${alertToUpdate.type} from ${alertToUpdate.camera}.`
-    );
   };
 
   const getStatusColor = (status: AlertStatus) => {

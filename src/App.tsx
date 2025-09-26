@@ -10,6 +10,7 @@ import Alerts from "./pages/Alerts";
 import BannedList from "./pages/BannedList";
 import AuditLog from "./pages/AuditLog";
 import { AuditLogProvider } from "./context/AuditLogContext";
+import { AppProvider } from "./context/AppContext";
 
 const queryClient = new QueryClient();
 
@@ -23,7 +24,9 @@ const App = () => (
           <Route
             element={
               <AuditLogProvider>
-                <DashboardLayout />
+                <AppProvider>
+                  <DashboardLayout />
+                </AppProvider>
               </AuditLogProvider>
             }
           >

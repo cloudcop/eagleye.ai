@@ -1,21 +1,30 @@
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Activity, CheckCircle, Users, Wifi } from "lucide-react";
+import { useAppContext } from "@/context/AppContext";
 
 const Index = () => {
+  const { alerts, bannedList } = useAppContext();
+
+  const totalAlerts = alerts.length;
+  const confirmedIncidents = alerts.filter(
+    (alert) => alert.status === "Confirmed"
+  ).length;
+  const bannedIndividuals = bannedList.length;
+
   return (
     <div>
       <h1 className="text-3xl font-bold mb-6">Dashboard</h1>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Total Alerts Today
-            </CardTitle>
+            <CardTitle className="text-sm font-medium">Total Alerts</CardTitle>
             <Activity className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">12</div>
-            <p className="text-xs text-muted-foreground">+5% from yesterday</p>
+            <div className="text-2xl font-bold">{totalAlerts}</div>
+            <p className="text-xs text-muted-foreground">
+              All-time system alerts
+            </p>
           </CardContent>
         </Card>
         <Card>
@@ -26,8 +35,10 @@ const Index = () => {
             <CheckCircle className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">3</div>
-            <p className="text-xs text-muted-foreground">This week</p>
+            <div className="text-2xl font-bold">{confirmedIncidents}</div>
+            <p className="text-xs text-muted-foreground">
+              Requires further action
+            </p>
           </CardContent>
         </Card>
         <Card>
@@ -38,8 +49,10 @@ const Index = () => {
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">47</div>
-            <p className="text-xs text-muted-foreground">+2 since last month</p>
+            <div className="text-2xl font-bold">{bannedIndividuals}</div>
+            <p className="text-xs text-muted-foreground">
+              Currently on the list
+            </p>
           </CardContent>
         </Card>
         <Card>
