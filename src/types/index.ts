@@ -5,3 +5,16 @@ export interface BannedPerson {
   date: string;
   image?: string;
 }
+
+export type AlertStatus = "Unconfirmed" | "Confirmed" | "False Alarm";
+export type AlertSeverity = "Low" | "Medium" | "High";
+
+export interface Alert {
+  id: number;
+  time: string;
+  camera: string;
+  type: string;
+  status: AlertStatus;
+  severity: AlertSeverity;
+  image?: string;
+}
