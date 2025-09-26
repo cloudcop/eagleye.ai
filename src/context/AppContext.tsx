@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, ReactNode, useEffect } from "react";
-import type { Alert, AlertStatus, BannedPerson } from "@/types";
+import type { Alert, AlertStatus, BannedPerson, AlertSeverity } from "@/types";
 import { useAuditLog } from "./AuditLogContext";
-import { showSuccess } from "@/utils/toast";
+import { showSuccess, showAlert } from "@/utils/toast";
 
 // Initial Data (as a fallback)
 const initialAlerts: Alert[] = [
@@ -53,6 +53,30 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     localStorage.setItem("verisure_banned_list", JSON.stringify(bannedList));
   }, [bannedList]);
+
+  // Real-time alert simulation
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const cameras = ["Entrance", "Aisle 1", "Checkout 4", "Stockroom", "Electronics"];
+      const types = ["Suspicious Behavior", "Banned Person Detected", "Concealment Detected", "Loitering"];
+      const severities: AlertSeverity[] = ["Low", "Medium", "High"];
+
+      const newAlert: Alert = {
+        id: Math.max(0, ...alerts.map((a) => a.id)) + 1,
+        time: new Date().toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' }),
+        camera: cameras[Math.floor(Math.random() * cameras.length)],
+        type: types[Math.floor(Math.random() * types.length)],
+        status: "Unconfirmed",
+        severity: severities[Math.floor(Math.random() * severities.length)],
+      };
+
+      setAlerts(prevAlerts => [newAlert, ...prevAlerts]);
+      showAlert(`New Alert: ${newAlert.severity} Severity`, `[${newAlert.camera}] ${newAlert.type}`);
+
+    }, 15000); // Every 15 seconds
+
+    return () => clearInterval(interval); // Cleanup on unmount
+  }, [alerts]); // Rerun when alerts change to get the latest count for ID
 
   const updateAlertStatus = (id: number, status: AlertStatus) => {
     const alertToUpdate = alerts.find((alert) => alert.id === id);

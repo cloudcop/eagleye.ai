@@ -15,3 +15,10 @@ export const showLoading = (message: string) => {
 export const dismissToast = (toastId: string) => {
   toast.dismiss(toastId);
 };
+
+export const showAlert = (title: string, description: string) => {
+  toast.info(title, {
+    description: description,
+    duration: 8000,
+  });
+};
