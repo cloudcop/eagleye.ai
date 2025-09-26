@@ -40,12 +40,17 @@ const HomePage = () => {
                   <DialogHeader className="p-4">
                     <DialogTitle className="text-white">Eagleye.ai Demo</DialogTitle>
                   </DialogHeader>
-                  <div className="aspect-video w-full bg-gray-900 flex items-center justify-center text-center p-8">
-                    <p className="text-gray-400">
-                      (Video player placeholder)
-                      <br /><br />
-                      This 45-second video demonstrates the Eagleye.ai dashboard. It shows how real-time alerts are generated, how staff can review incidents, manage the banned list, and track all actions in the audit log for compliance.
-                    </p>
+                  <div className="aspect-video w-full">
+                    <video
+                      className="w-full h-full"
+                      src="/EagleyeAI_Product_Demo_Video.mp4"
+                      controls
+                      autoPlay
+                      muted
+                      loop
+                    >
+                      Your browser does not support the video tag.
+                    </video>
                   </div>
                 </DialogContent>
               </Dialog>
