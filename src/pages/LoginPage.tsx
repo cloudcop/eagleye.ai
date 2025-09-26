@@ -12,7 +12,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Eye } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-const LoginPage = () => {
+export default function LoginPage() {
   const navigate = useNavigate();
 
   const handleAuth = (e: React.FormEvent) => {
@@ -94,6 +94,4 @@ const LoginPage = () => {
       </div>
     </div>
   );
-};
-
-export default LoginPage;
+}
